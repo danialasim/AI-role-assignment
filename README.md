@@ -31,6 +31,8 @@ Build an agent-based system that takes a topic (like "best productivity tools fo
 - SEO metadata (title tag, meta description)
 - Keyword analysis showing primary and secondary keywords used
 - Structured data that can be validated programmatically
+- Internal linking suggestions (3-5 relevant anchor texts with suggested target pages)
+- External references (2-4 authoritative sources to cite, with context for placement)
 
 **Architecture Considerations:**
 - Use structured data models throughout (Pydantic or similar)
@@ -39,10 +41,24 @@ Build an agent-based system that takes a topic (like "best productivity tools fo
 - Validate that output actually meets SEO criteria
 
 **SERP Analysis:**
-You'll need to work with search result data. You can mock this if you don't have API access, but the data structure should be realistic (rank, URL, title, snippet for each result). The agent should extract common themes and topics from these results to inform the outline.
+You'll need to work with search result data. You can use services like SerpAPI, DataForSEO, or ValueSERP to fetch real search results, or mock the data if you prefer. The data structure should include at minimum: rank, URL, title, and snippet for each of the top 10 results. The agent should extract common themes and topics from these results to inform the outline.
+
+If mocking the data, structure it realistically - for example:
+```json
+{
+  "rank": 1,
+  "url": "https://example.com/productivity-tools",
+  "title": "15 Best Productivity Tools for Remote Teams in 2025",
+  "snippet": "Discover the top productivity tools that help remote teams collaborate..."
+}
+```
 
 **Quality Bar:**
 The generated articles should demonstrate actual SEO principles: primary keyword in title and introduction, proper header structure, coverage of related subtopics, and most importantly - they should read like a human wrote them, not a content mill bot.
+
+**Linking Strategy:**
+- Internal links: Identify 3-5 opportunities to link to related content (e.g., "SEO keyword research tools", "content optimization checklist"). Include the anchor text and suggested target page/topic.
+- External links: Select 2-4 authoritative sources to reference (think industry reports, academic studies, or established publications). Specify where in the article each citation would add credibility.
 
 ### Bonus Points
 
