@@ -111,6 +111,7 @@ WRITING REQUIREMENTS:
    - Be specific rather than generic
 6. Include transitional phrases between ideas
 7. Target exactly {word_count} words (±20 words acceptable)
+8. IMPORTANT: Naturally incorporate the primary keyword "{keywords[0] if keywords else ''}" at least 2-3 times in this section for SEO optimization
 
 Write the section content now (do not repeat the H2 heading, start with the content):"""
 
