@@ -30,7 +30,7 @@ class SerpAPIService:
                 "hl": "en"
             }
             
-            response = requests.get(self.base_url, params=params, timeout=10)
+            response = requests.get(self.base_url, params=params, timeout=30)
             response.raise_for_status()
             data = response.json()
             

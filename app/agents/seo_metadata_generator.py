@@ -27,13 +27,13 @@ Article Preview (first 250 chars): {article_content[:250]}
 Create the following (return as JSON):
 {{
   "title_tag": "SEO title (50-60 characters, include primary keyword near the start)",
-  "meta_description": "Compelling meta description (150-160 characters, include keyword, call-to-action)",
+  "meta_description": "Compelling meta description (EXACTLY 155 characters, include keyword, call-to-action)",
   "focus_keyword": "Primary keyword phrase"
 }}
 
 REQUIREMENTS:
 - Title tag: 50-60 characters, engaging, includes primary keyword
-- Meta description: 150-160 characters, compelling, includes keyword and benefit
+- Meta description: EXACTLY 155 characters (count carefully!), compelling, includes keyword and benefit
 - Focus keyword: Should match or be very close to the primary keyword
 
 Return ONLY the JSON object."""
