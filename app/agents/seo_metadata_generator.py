@@ -1,3 +1,35 @@
+"""SEO Metadata Generator Agent - Creates Title Tags, Descriptions, and Link Strategies.
+
+This agent handles Steps 5-8 in the pipeline, generating all SEO-critical metadata:
+
+Step 5: SEO Metadata
+    - Title tag: 50-60 characters with primary keyword
+    - Meta description: Exactly 155 characters (SERP preview)
+    - Focus keyword: Primary keyword for optimization
+
+Step 6: Internal Links
+    - 3-5 internal link suggestions with anchor text
+    - Context for where/why to place each link
+    - Helps with site structure and PageRank distribution
+
+Step 7: External References
+    - 2-4 authoritative external sources to cite
+    - E-E-A-T signals (Expertise, Authoritativeness, Trustworthiness)
+    - Real domains (harvard.edu, .gov, forbes.com, etc.)
+
+Step 8: Keyword Analysis
+    - Count primary keyword occurrences
+    - Calculate keyword density (target: 1-2.5%)
+    - Track secondary keyword usage
+
+Why This Matters:
+    - Title tag = First thing users see in Google results (CTR impact)
+    - Meta description = Sales pitch in SERP (155 char limit hard cut-off)
+    - Internal links = Site architecture and user navigation
+    - External links = E-E-A-T signals and credibility
+    - Keyword density = Relevance signal (but avoid stuffing)
+"""
+
 from typing import Dict, List
 from app.services.llm_service import LLMService
 from app.models.response import (
@@ -5,7 +37,11 @@ from app.models.response import (
 )
 
 class SEOMetadataGenerator:
-    """Agent for generating SEO metadata and link suggestions"""
+    """Generates all SEO-critical metadata and link strategies for articles.
+    
+    This is a multi-purpose agent handling 4 different generation tasks
+    (metadata, internal links, external refs, keyword analysis).
+    """
     
     def __init__(self):
         self.llm_service = LLMService()
@@ -183,7 +219,34 @@ Return ONLY the JSON object."""
         primary_keyword: str, 
         secondary_keywords: List[str]
     ) -> KeywordAnalysis:
-        """Analyze keyword usage in the article"""
+        """Calculate keyword density and distribution across the article.
+        
+        This is a non-LLM method - uses simple string counting and math.
+        
+        Keyword Density Formula:
+            (Keyword Count / Total Words) × 100 = Density %
+        
+        Target Density:
+            - 1-2.5%: Optimal (signals relevance without stuffing)
+            - <1%: Under-optimized (might not rank well)
+            - >3%: Over-optimized (keyword stuffing penalty risk)
+        
+        Args:
+            article_content: Full article text
+            primary_keyword: Main keyword phrase (e.g., "productivity tools")
+            secondary_keywords: Related terms (e.g., ["remote work", "collaboration"])
+        
+        Returns:
+            KeywordAnalysis with:
+            - primary_keyword: The main keyword
+            - secondary_keywords: List of related terms
+            - keyword_density: Percentage (e.g., 1.8 for 1.8%)
+        
+        Example:
+            Article: 1500 words, keyword appears 25 times
+            Density: (25 / 1500) × 100 = 1.67%
+            Result: Good! Within 1-2.5% target range
+        """
         
         content_lower = article_content.lower()
         primary_count = content_lower.count(primary_keyword.lower())

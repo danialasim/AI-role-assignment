@@ -1,4 +1,5 @@
 import pytest
+import os
 from app.agents.serp_analyzer import SERPAnalyzer
 from app.agents.outline_generator import OutlineGenerator
 from app.agents.quality_validator import QualityValidator
@@ -8,13 +9,40 @@ from app.services.serp_service import SerpAPIService
 def test_serp_service_returns_results():
     """Test SERP service returns mock data"""
     serp_service = SerpAPIService()
-    results = serp_service.search("test query")
+    # Use get_mock_data directly to avoid hitting real API during tests
+    results = serp_service.get_mock_data("test query")
     
     assert len(results) == 10
     assert all(isinstance(r, SERPResult) for r in results)
     assert all(r.rank >= 1 and r.rank <= 10 for r in results)
     assert all(r.url for r in results)
     assert all(r.title for r in results)
+
+@pytest.mark.skipif(
+    not os.environ.get("RUN_REAL_API", "false").lower() == "true",
+    reason="Skipped unless RUN_REAL_API=true environment variable is set"
+)
+def test_serp_service_real_api():
+    """Test SERP service with real API call (run with: RUN_REAL_API=true pytest)
+    
+    This test hits the actual SerpAPI and consumes 1 API credit.
+    Only run this when you want to verify real API integration.
+    
+    Usage:
+        RUN_REAL_API=true pytest tests/test_agents.py::test_serp_service_real_api -v
+    """
+    serp_service = SerpAPIService()
+    results = serp_service.search("productivity tools for remote work")
+    
+    # Real API returns 8-10 results depending on query and Google's results
+    assert len(results) >= 8, f"Expected at least 8 results, got {len(results)}"
+    assert all(hasattr(r, "url") and hasattr(r, "title") for r in results)
+    assert len(results) <= 10
+    assert all(isinstance(r, SERPResult) for r in results)
+    assert all(r.rank >= 1 for r in results)
+    assert all(r.url for r in results)
+    assert all(r.title for r in results)
+    print(f"\n✅ Real API returned {len(results)} results")
 
 def test_serp_service_mock_data_structure():
     """Test mock SERP data has correct structure"""
