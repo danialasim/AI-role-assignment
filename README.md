@@ -1,6 +1,6 @@
 # SEO Content Generator
 
-AI-powered backend service for generating SEO-optimized articles at scale using **Claude Sonnet 3.5**.
+AI-powered backend service for generating SEO-optimized articles at scale using **Claude Sonnet 4**.
 
 ## 🎯 Project Overview
 
