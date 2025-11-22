@@ -45,11 +45,6 @@ Scoring:
    - 70+ = PASSED (publishable quality)
    - <70 = NEEDS REVIEW (quality issues)
 
-Senior-Level Improvements:
-   ✅ Word-boundary keyword matching (prevents 'cat' matching 'education')
-   ✅ Proper sentence counting with regex (handles Dr., U.S.A., e.g., vs.)
-   ✅ Soft validation boundaries (149 chars description gets partial credit)
-
 This validation ensures every article meets professional SEO standards.
 """
 
