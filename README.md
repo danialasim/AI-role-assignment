@@ -386,7 +386,7 @@ MIT License - Built as technical assessment for AISEO.io
 
 **Danial Asim**  
 Senior GenAI Engineer Candidate  
-[GitHub](https://github.com/yourusername) | [LinkedIn](https://linkedin.com/in/yourprofile)
+[GitHub](https://github.com/danialasim) | [LinkedIn](https://linkedin.com/in/danialasim)
 
 ---
 
